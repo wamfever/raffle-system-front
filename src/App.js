@@ -7,7 +7,7 @@ import {
 import { Web3Service } from './services/web3service';
 import MetaMaskConnector from './integrations/MetaMaskConnector';
 import Nav from "react-bootstrap/Nav";
-import { Home } from "./screens/Home";
+import AllRaffles from "./screens/AllRaffles";
 
 export default function App() {
 
@@ -40,14 +40,16 @@ export default function App() {
     return Web3Service.getActtiveRaffleIndex();
   }
 
+  const [activeSection, setActiveSection] = React.useState('active_raffles');
+
   return (
     <Router>
-      <Nav justify variant="tabs" defaultActiveKey="/home" >
+      <Nav justify variant="tabs" defaultActiveKey="/all_raffles" onSelect={(event) => setActiveSection(event)}>
         <Nav.Item>
-          <Nav.Link href="/home">All Raffles</Nav.Link>
+          <Nav.Link href="/all_raffles">All Raffles</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-1">Active Raffles</Nav.Link>
+          <Nav.Link eventKey="/active_raffles">Active Raffles</Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="link-2">My Raffles</Nav.Link>
@@ -57,11 +59,9 @@ export default function App() {
         </Nav.Item>
       </Nav>
 
-      {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
       <Switch>
-        <Route path="/">
-          <Home 
+        <Route path="/all_raffles">
+          <AllRaffles
             getRafflesLength={getRafflesLength}
             getRaffle={getRaffle}
             getActiveRafflesLength={getActiveRafflesLength}

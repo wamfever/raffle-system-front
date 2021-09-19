@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Modal, Image, Button } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
+import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 
 import MetaMaskConnector from '../integrations/MetaMaskConnector';
 
@@ -24,32 +27,28 @@ function ConnectModal(props) {
       backdrop='static'
       className='text-centered'
       centered>
-      <Modal.Header>Please Conenct to your Metamask</Modal.Header>
       <Modal.Body className='text-centered'>
         {!connected ? (
-          <div className='container-fluid'>
-            <Image
-              className='center-block'
-              src='https://acegif.com/wp-content/uploads/loading-2.gif'
-              alt='placeholder'
-              fluid
-            />
-          </div>
+          <Container fluid className="text-center">
+            <span className="lead"> Please Conenct to your Metamask </span>
+          </Container>
         ) : (
-          <div className='container-fluid'>
-            <Image
-              className='center-block'
-              src='https://thumbs.gfycat.com/FavorableBoldConey-size_restricted.gif'
-              alt='success'
-              fluid
-            />
-          </div>
+          <Container fluid className="text-center">
+            <span className="lead"> Authentication succesful! </span>
+          </Container>
         )}
       </Modal.Body>
-      <Modal.Footer className='text-centered'>
-        <Button className='btn btn-md btn-danger' onClick={() => connectWeb3()}>
-          Connect
-        </Button>
+      <Modal.Footer className='justify-content-center'>
+        {
+          connected ?
+          <Button className='btn btn-md btn-success' onClick={() => {}}>
+            Loading..
+          </Button>
+          :
+          <Button className='btn btn-md btn-primary' onClick={() => connectWeb3()}>
+            Connect
+          </Button>
+        }
       </Modal.Footer>
     </Modal>
   );
