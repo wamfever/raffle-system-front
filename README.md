@@ -10,3 +10,8 @@ As mentioned before, the frontend interacts with:
 
 ## How to
 The test setup uses the MetaMask integration from a test account of Rinkeby Network. In order to simulate the exact same behaviour, please conenct Metamask to your Rinkeby Network Account.
+```shell
+git clone
+npm i
+npm start
+```
