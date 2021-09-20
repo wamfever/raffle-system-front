@@ -8,6 +8,7 @@ import { Web3Service } from './services/web3service';
 import MetaMaskConnector from './integrations/MetaMaskConnector';
 import Nav from "react-bootstrap/Nav";
 import AllRaffles from "./screens/AllRaffles";
+import ActiveRaffles from "./screens/ActiveRaffles";
 
 export default function App() {
 
@@ -37,25 +38,22 @@ export default function App() {
 
   const getActiveRaffleIndex = (active_raffle_index) => {
     checkSetUp();
-    return Web3Service.getActtiveRaffleIndex();
+    return Web3Service.getActtiveRaffleIndex(active_raffle_index);
   }
 
-  const [activeSection, setActiveSection] = React.useState('active_raffles');
+  const buyTickets = (raffleId, amount) => {
+    checkSetUp();
+    return Web3Service.buyTickets(raffleId, amount);
+  }
 
   return (
     <Router>
-      <Nav justify variant="tabs" defaultActiveKey="/all_raffles" onSelect={(event) => setActiveSection(event)}>
+      <Nav fill>
         <Nav.Item>
           <Nav.Link href="/all_raffles">All Raffles</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="/active_raffles">Active Raffles</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-2">My Raffles</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-2">Winners</Nav.Link>
+          <Nav.Link href="/active_raffles">Active Raffles</Nav.Link>
         </Nav.Item>
       </Nav>
 
@@ -64,8 +62,14 @@ export default function App() {
           <AllRaffles
             getRafflesLength={getRafflesLength}
             getRaffle={getRaffle}
+          />
+        </Route>
+        <Route path="/active_raffles">
+          <ActiveRaffles
+            getRaffle={getRaffle}
             getActiveRafflesLength={getActiveRafflesLength}
             getActiveRaffleIndex={getActiveRaffleIndex}
+            buyTickets={buyTickets}
           />
         </Route>
       </Switch>

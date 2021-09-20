@@ -5,7 +5,8 @@ import Col from 'react-bootstrap/Col';
 import ConnectModal from "../components/ConnectModal";
 import RaffleTable from "../components/RaffleTable";
 
-const AllRaffles = (props) => {
+const ActiveRaffles = (props) => {
+
     const [connected, setConnected] = React.useState(false);
     const [connectModal, setConnectModal] = React.useState(true);
     const [raffles, setRaffles] = React.useState([]);
@@ -14,14 +15,21 @@ const AllRaffles = (props) => {
         setConnectModal(false);
     };
 
+    const addRaffle = async (active_raffle_index) => {
+        await props.getRaffle(active_raffle_index).then(result => {
+            setRaffles(raffles => [...raffles, result]);
+        });
+    };
+
     const getRaffles = async () => {
-        const rafflesLength = await props.getRafflesLength();
-        for (let i = 0; i < rafflesLength; i++) {
-            await props.getRaffle(i).then(result => {
-                setRaffles(raffles => [...raffles, result]);
+        const activeRafflesLength = await props.getActiveRafflesLength();
+        for (let i = 0; i < activeRafflesLength; i++) {
+            await props.getActiveRaffleIndex(i).then(active_raffle_index => {
+                console.log(active_raffle_index);
+                addRaffle(active_raffle_index);
             });
-        }
-    }
+        };
+    };
 
     const initWeb3Interface = async () => {
         setTimeout(() => {
@@ -42,7 +50,13 @@ const AllRaffles = (props) => {
                             initWeb3={initWeb3Interface}
                         />
                         :
-                        <RaffleTable display={connected} raffles={raffles} />
+                        <RaffleTable
+                            display={connected}
+                            raffles={raffles}
+                            activeRaffles={true}
+                            getActiveRaffleIndex={props.getActiveRaffleIndex}
+                            buyTickets={props.buyTickets}
+                        />
                     }
                 </Col>
             </Row>
@@ -50,4 +64,4 @@ const AllRaffles = (props) => {
     );
 }
 
-export default AllRaffles;
+export default ActiveRaffles;
