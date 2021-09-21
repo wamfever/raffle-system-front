@@ -41,12 +41,10 @@ export const Web3Service = {
     },
 
     getActtiveRaffleIndex: (active_raffle_index) => {
-        console.log(active_raffle_index);
         return contract.methods.active_raffles(active_raffle_index).call();
     },
 
     buyTickets: (raffleIndex, amount) => {
-        console.log(raffleIndex, amount);
         return contract.methods.buyTickets(raffleIndex, amount).send({
             from: currentAddress
         });

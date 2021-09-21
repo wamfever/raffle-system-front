@@ -17,7 +17,9 @@ const ActiveRaffles = (props) => {
 
     const addRaffle = async (active_raffle_index) => {
         await props.getRaffle(active_raffle_index).then(result => {
-            setRaffles(raffles => [...raffles, result]);
+             if (result[7] !== 'ended') {
+                setRaffles(raffles => [...raffles, result]);
+            }
         });
     };
 
@@ -25,7 +27,6 @@ const ActiveRaffles = (props) => {
         const activeRafflesLength = await props.getActiveRafflesLength();
         for (let i = 0; i < activeRafflesLength; i++) {
             await props.getActiveRaffleIndex(i).then(active_raffle_index => {
-                console.log(active_raffle_index);
                 addRaffle(active_raffle_index);
             });
         };
