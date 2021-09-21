@@ -1,8 +1,8 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
+  HashRouter as Router
 } from "react-router-dom"
 import { Web3Service } from './services/web3service';
 import MetaMaskConnector from './integrations/MetaMaskConnector';
