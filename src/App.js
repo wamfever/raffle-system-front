@@ -2,6 +2,7 @@ import React from "react";
 import {
   Switch,
   Route,
+  Link,
   HashRouter as Router
 } from "react-router-dom"
 import { Web3Service } from './services/web3service';
@@ -50,10 +51,12 @@ export default function App() {
     <Router>
       <Nav fill>
         <Nav.Item>
-          <Nav.Link href="/all_raffles">All Raffles</Nav.Link>
+          <Nav.Link>
+          <Link to="all_raffles">All Raffles</Link>
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/active_raffles">Active Raffles</Nav.Link>
+          <Link to="active_raffles">Active Raffles</Link>
         </Nav.Item>
       </Nav>
 
